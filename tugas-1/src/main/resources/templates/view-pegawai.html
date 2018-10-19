@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>View</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>	
+		<h2 th:text="'Lihat Data Pegawai - ' + ${pegawai.nip} "></h2>
+		<table>
+			<tbody>
+				<tr>
+					<td width="200" height="50">NIP:</td>
+					<td th:text="${pegawai.nip}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Nama:</td>
+					<td th:text="${pegawai.nama}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Tempat Lahir:</td>
+					<td th:text="${pegawai.tempatLahir}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Tanggal Lahir:</td>
+					<td th:text="${pegawai.tanggalLahir}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Tahun Masuk:</td>
+					<td th:text="${pegawai.tahunMasuk}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Nama Instansi:</td>
+					<td th:text="${pegawai.instansi.nama} + ' - ' + ${pegawai.instansi.provinsi.nama}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Jabatan:</td>
+					<td>
+						<ul>
+							<li th:each="jabatan,iterationStatus: ${pegawai.listJabatan}">
+								<a th:text="${jabatan.nama}"></a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Gaji:</td>
+					<td th:text="'Rp' + ${gaji}"></td>
+				</tr>
+			</tbody>			
+		</table>
+
+</body>
+</html>

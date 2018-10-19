@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>View</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>	
+		<h2 th:text="'Lihat Jabatan ' + ${jabatan.nama} "></h2>
+		<table>
+			<tbody>
+				<tr>
+					<td width="200" height="50">Nama</td>
+					<td th:text="${jabatan.nama}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Deskripsi</td>
+					<td th:text="${jabatan.deskripsi}"></td>
+				</tr>
+				<tr>
+					<td width="200" height="50">Gaji Pokok</td>
+					<td th:text="${jabatan.gajiPokok}"></td>
+			</tbody>			
+		</table>
+		<br>
+		<form action="/jabatan/ubah" id="ubahJabatan" method="get">
+			<input type="hidden" name="id" th:value="${jabatan.id}"/>
+			<input type="submit" value="Ubah">
+		</form>
+		<br>
+		<form action="/jabatan/hapus" id="ubahJabatan" method="post">
+			<input type="hidden" name="id" th:value="${jabatan.id}"/>
+			<input type="submit" value="Hapus">
+		</form>
+
+</body>
+</html>
