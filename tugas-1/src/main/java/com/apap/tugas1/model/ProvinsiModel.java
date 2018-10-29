@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "provinsi")
 public class ProvinsiModel implements Serializable {
@@ -34,6 +36,7 @@ public class ProvinsiModel implements Serializable {
 	
 	/*relasi dengan instansi*/
 	@OneToMany(mappedBy = "provinsi", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@JsonIgnore
 	private List<InstansiModel> listInstansi;
 
 

@@ -1,5 +1,6 @@
 package com.apap.tugas1.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.apap.tugas1.model.InstansiModel;
@@ -16,5 +17,7 @@ public interface PegawaiService {
 	List<PegawaiModel> getPegawaiByProvinsiAndJabatan(Long provinsiId, JabatanModel jabatan);
 	List<PegawaiModel> getPegawaiByProvinsi(Long provinsiId);
 	List<PegawaiModel> getPegawaiByJabatan(JabatanModel jabatan);
-	
+	void deleteByNip(String nip);
+	List<PegawaiModel> getPegawaiByInstansiAndTanggalLahirAndTahunMasuk(InstansiModel instansi, Date tanggalLahir, String tahunMasuk);
+	void updatePegawai(String nip, PegawaiModel pegawai);
 }

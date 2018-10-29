@@ -40,4 +40,9 @@ public class InstansiServiceImpl implements InstansiService {
 	public Optional<InstansiModel> getInstansiById(Long id) {
 		return instansiDb.findById(id);
 	}
+	
+	@Override
+	public List<InstansiModel> getInstansiByProvinsi(ProvinsiModel provinsi) {
+		return instansiDb.findByProvinsi(provinsi);
+	}
 }

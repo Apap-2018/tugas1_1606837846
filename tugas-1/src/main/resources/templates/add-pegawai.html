@@ -1,0 +1,98 @@
+<head>
+	<title>Add Pegawai</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+
+			<div class="card border-info mb-3" style="margin:25px;">
+				<div class="card-header" style="text-align:center">
+					 <h3>Tambah Pegawai</h3>
+				</div>
+				<div class="card-body">
+					<div class="container">
+						<form  th:action="@{/pegawai/tambah}" th:object="${pegawai}" method ="POST">
+  							<div class="form-group">
+    						<label for="nama">Nama</label>
+    						<input type="text" class="form-control" name="nama" th:value="*{nama}" aria-describedby="emailHelp" required="required" placeholder="Enter nama">
+  							</div>
+  							<div class="form-group">
+    						<label for="tempatLahir">Tempat Lahir</label>
+    						<input type="text" class="form-control" name="tempatLahir" th:value="*{tempatLahir}" aria-describedby="emailHelp" required="required" placeholder="Enter tempat lahir">
+  							</div>
+  							<div class="form-group">
+    						<label for="tanggalLahir">Tanggal Lahir</label>
+    						<input type="date" class="form-control" name="tanggalLahir" th:value="*{tanggalLahir}" aria-describedby="emailHelp" required="required" placeholder="Enter tanggal lahir">
+  							</div>
+  							<div class="form-group">
+  							<label for="tahunMasuk">Tahun Masuk</label>
+    						<input type="number" class="form-control" name="tahunMasuk" th:value="*{tahunMasuk}" aria-describedby="emailHelp" required="required" placeholder="Enter tahun masuk">
+  							</div>
+  							<div class="form-group">
+  							<label for="provinsi">Provinsi</label>
+							<span th:if="*{instansi} == null">
+								<select  class="form-control" required="required" name="provinsi" id="provinsi" th:value="${listProvinsi}">
+						      		<option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" ></option>
+						    	</select>
+							</span>
+							<span th:unless="*{instansi} == null">
+								<select  class="form-control" required="required" name="provinsi" id="provinsi" th:value="*{instansi.provinsi}">
+						      		<option  th:value="*{instansi.provinsi.id}" selected="selected" th:text="*{instansi.provinsi.nama}"></option>
+			                    	<option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" ></option>
+						    	</select>
+							</span>
+							</div>
+							<div class="form-group">
+							<label for="instansi">Nama Instansi</label>
+							<span th:if="*{instansi} == null">
+								<select class="custom-select" th:field="*{instansi}" id="instansi" required="required">
+								<option th:each="instansi : ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" ></option>
+								</select>	
+							</span>
+							<span th:unless="*{instansi} == null">
+								<select class="custom-select" th:value="*{instansi}" id="instansi" name="instansi" required="required">
+			                    	<option  th:value="*{instansi.id}" selected="selected" th:text="*{instansi.nama}"></option>
+			                    	<option th:each="instansi : ${listInstansi}" 	th:value="${instansi.id}" th:text="${instansi.nama}" ></option>
+			                	</select>	
+							</span>
+  							</div>
+  							<div class="form-group">
+  							<label for="listJabatan">Jabatan</label><br>
+							<span th:each="jabatan, iterationStat : *{listJabatan}">
+							<select style="margin: 5px;"class="custom-select col-md-6" name="listJabatan">
+								<option th:each="jabatan : ${listJabatan}" th:field="*{listJabatan[__${iterationStat.index}__]}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+							</select>
+							<button type="submit" class="btn btn-danger btn-sm" style="margin: 5px;" name="deleteRow" th:value="${iterationStat.index}" th:style="${iterationStat.count} == 1 ? 'display: none;' : ''">Delete Jabatan</button>
+							</span>
+							<button type="submit" class="btn btn-info btn-sm" name="addRow" style="margin: 5px;">Tambah Jabatan</button>
+  							</div>
+  							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+	</body>
+	
+	<script th:inline="javascript">
+	$('#provinsi').change(
+	     function() {
+	    	 console.log($(this).val());
+	         $.getJSON("/instansi/getInstansiByProvinsi", {
+	             idProvinsi : $(this).val(),
+	             ajax : 'true'
+	         }, function(data) {
+	             var html = '<option value="">-- Pilih Instansi --</option>';
+	             var size = data.length;
+	             for ( var i = 0; i < size; i++) {
+	                 html += '<option value="' + data[i].id + '">' + data[i].nama + '</option>';
+	             }
+	             $('#instansi').html(html);
+	         });
+	     });
+	</script>
+	
+</html>

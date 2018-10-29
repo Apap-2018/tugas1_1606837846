@@ -1,6 +1,9 @@
 package com.apap.tugas1.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +23,28 @@ public class PegawaiServiceImpl implements PegawaiService{
 
 	@Override
 	public PegawaiModel getPegawaiDetailById(long id) {
-		// TODO Auto-generated method stub
 		return pegawaiDb.findById(id);
 	}
 
 	@Override
 	public void addPegawai(PegawaiModel pegawai) {
-		// TODO Auto-generated method stub
-		pegawaiDb.save(pegawai);
+		pegawaiDb.save(pegawai); 
+		
 	}
-
+	
+	@Override
+	public List<PegawaiModel> getPegawaiByInstansiAndTanggalLahirAndTahunMasuk(InstansiModel instansi, Date tanggalLahir, String tahunMasuk){
+		return pegawaiDb.findByTanggalLahirAndInstansiAndTahunMasuk(tanggalLahir, instansi, tahunMasuk);		
+	}
+	
+	
+	@Override
+	public void deleteByNip(String nip) {
+		pegawaiDb.deleteByNip(nip);
+	}
+	
 	@Override
 	public PegawaiModel getPegawaiDetailByNip(String nip) {
-		// TODO Auto-generated method stub
 		return pegawaiDb.findByNip(nip);
 	}
 	
@@ -88,6 +100,19 @@ public class PegawaiServiceImpl implements PegawaiService{
 	@Override
 	public List<PegawaiModel> getPegawaiByJabatan(JabatanModel jabatan){
 		return pegawaiDb.findByListJabatan(jabatan);
+	}
+	
+	@Override
+	public void updatePegawai(String nip, PegawaiModel pegawai) {
+		PegawaiModel updatePegawai = pegawaiDb.findByNip(nip);
+		updatePegawai.setNama(pegawai.getNama());
+		updatePegawai.setNip(pegawai.getNip());
+		updatePegawai.setTanggalLahir(pegawai.getTanggalLahir());
+		updatePegawai.setTempatLahir(pegawai.getTempatLahir());
+		updatePegawai.setTahunMasuk(pegawai.getTahunMasuk());
+		updatePegawai.setInstansi(pegawai.getInstansi());
+		updatePegawai.setListJabatan(pegawai.getListJabatan());
+		pegawaiDb.save(updatePegawai);
 	}
 	
 }
