@@ -36,8 +36,10 @@ public class InstansiController {
 
 	@RequestMapping(value = "/instansi/getInstansiByProvinsi", method = RequestMethod.GET)
 	@ResponseBody
-	public List<InstansiModel> getInstansi(@RequestParam (value = "idProvinsi", required = true) int idProvinsi, Model model) {
+	public List<InstansiModel> getInstansi(@RequestParam (value = "idProvinsi", required = true) long idProvinsi, Model model) {
+		System.out.println("masuk fungsi list");
 		ProvinsiModel provinsi = provinsiService.getProvinsiDetailById(idProvinsi);
+		System.out.println(provinsi.getNama());
 	    return instansiService.getInstansiByProvinsi(provinsi);
 	}
 	

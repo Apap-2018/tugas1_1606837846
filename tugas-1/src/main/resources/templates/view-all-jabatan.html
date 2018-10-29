@@ -18,14 +18,14 @@
 			<thead>
 				<th>Nama</th>
 				<th>Deskripsi</th>
-				<th>Jumlah pegawai</th>
+				<!-- <th>Jumlah pegawai</th> -->
 				<th>Gaji Pokok</th>
 			</thead>
 			<span th:each="jabatan : ${listJabatan}">
 				<tr>
 					<td th:text="${jabatan.nama}"></td>
 					<td th:text="${jabatan.deskripsi}"></td>
-					<td th:text="${jabatan.listPegawai.size()}"></td>
+					<!-- <td th:text="${jabatan.listPegawai.size()}"></td> -->
 					<td th:text="${jabatan.gajiPokok}"></td>
 				</tr>
 			</span>

@@ -20,5 +20,6 @@ public interface PegawaiDb extends JpaRepository<PegawaiModel, Long> {
 	List<PegawaiModel> findByListJabatan(JabatanModel jabatan);
 	List<PegawaiModel> findByTanggalLahirAndInstansiAndTahunMasuk(Date tanggalLahir, InstansiModel instansi, String tahunMasuk);
 	String deleteByNip(String nip);
+	List<PegawaiModel> findByInstansiAndTanggalLahirAndTahunMasukOrderByNipAsc(InstansiModel instansi, Date tanggalLahir, String tahunMasuk);
 	
 }

@@ -149,7 +149,8 @@ public class PegawaiController {
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	private String addPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
 		String kode = String.valueOf(pegawai.getInstansi().getId());
-		
+		System.out.println(kode);
+		System.out.println(pegawai.getInstansi().getNama());
 		SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yy");
 		String tanggalLahir = newFormat.format(pegawai.getTanggalLahir()).replaceAll("-", "");
 		

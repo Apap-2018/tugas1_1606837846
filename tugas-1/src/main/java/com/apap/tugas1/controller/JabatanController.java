@@ -22,6 +22,9 @@ public class JabatanController {
 	@Autowired
 	private JabatanService jabatanService;
 	
+	@Autowired
+	private PegawaiService pegawaiService;
+	
 	@RequestMapping(value = "/jabatan/tambah", method = RequestMethod.GET)
 	private String add(Model model) {
 		model.addAttribute("jabatan", new JabatanModel());
@@ -50,6 +53,9 @@ public class JabatanController {
 	@RequestMapping(value = "/jabatan/view", method = RequestMethod.GET)
 	private String viewJabatan(@RequestParam("id") Long id, Model model) {
 		JabatanModel jabatan = jabatanService.getJabatanDetailById(id);
+		List<PegawaiModel> pegawai = pegawaiService.getPegawaiByJabatan(jabatan);
+		int jlhPegawai = pegawai.size();
+		model.addAttribute("jlhPegawai", jlhPegawai);
 		model.addAttribute("jabatan", jabatan);
 		return "view-jabatan";
 
@@ -71,6 +77,7 @@ public class JabatanController {
 	@RequestMapping(value = "/jabatan/viewall", method = RequestMethod.GET)
 	private String viewAllJabatan(Model model) {
 		List<JabatanModel> listJabatan = jabatanService.getAllJabatan();
+		
 		model.addAttribute("listJabatan", listJabatan);
 		return "view-all-jabatan";
 	}

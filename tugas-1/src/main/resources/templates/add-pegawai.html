@@ -1,8 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>Add Pegawai</title>
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 </head>
 
 <body>
@@ -56,7 +61,7 @@
 							<span th:unless="*{instansi} == null">
 								<select class="custom-select" th:value="*{instansi}" id="instansi" name="instansi" required="required">
 			                    	<option  th:value="*{instansi.id}" selected="selected" th:text="*{instansi.nama}"></option>
-			                    	<option th:each="instansi : ${listInstansi}" 	th:value="${instansi.id}" th:text="${instansi.nama}" ></option>
+			                    	<option th:each="instansi : ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" ></option>
 			                	</select>	
 							</span>
   							</div>
@@ -80,11 +85,14 @@
 	<script th:inline="javascript">
 	$('#provinsi').change(
 	     function() {
-	    	 console.log($(this).val());
-	         $.getJSON("/instansi/getInstansiByProvinsi", {
+	    	 //console.log($(this).val());
+	    	 //alert('masuk');
+	    	 //alert($(this).val());
+	         $.getJSON("/instansi/getInstansiByProvinsi/", {
 	             idProvinsi : $(this).val(),
 	             ajax : 'true'
 	         }, function(data) {
+	        	 console.log("apapun");
 	             var html = '<option value="">-- Pilih Instansi --</option>';
 	             var size = data.length;
 	             for ( var i = 0; i < size; i++) {
